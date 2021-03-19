@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StackLayout2.MainPage">
+
+    <ContentPage.Content>
+
+        <ScrollView>
+
+            <StackLayout Spacing="0" Padding="0" BackgroundColor="Maroon">
+
+                <BoxView Color="Gray"  HorizontalOptions="FillAndExpand"
+                         HeightRequest="100" VerticalOptions="Start"/>
+
+                <Button CornerRadius="40" HeightRequest="80" WidthRequest="80"
+                        BackgroundColor="Red" HorizontalOptions="Center" 
+                        VerticalOptions="Start"
+                        TranslationY="-35"></Button>
+
+                <StackLayout HeightRequest="100" VerticalOptions="Start"
+                             HorizontalOptions="FillAndExpand" Spacing="20">
+
+                    <Label Text="User Name" TextColor="White" FontSize="30"
+                           FontAttributes="Bold" HorizontalOptions="Center"></Label>
+
+                    <Entry Placeholder="Biografia" PlaceholderColor="White"
+                           TextColor="White" FontSize="20"></Entry>
+                    
+                </StackLayout>
+
+                <StackLayout BackgroundColor="White" HeightRequest="50" 
+                             Padding="5" Orientation="Horizontal" 
+                             Spacing="60">
+
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+                        
+                        <BoxView BackgroundColor="Black"></BoxView>
+
+                        <Label Text="Accent Color" FontAttributes="Bold"
+                           FontSize="15" Margin="0,10,0,0"></Label>
+                        
+                    </StackLayout>
+
+
+
+                    <StackLayout Orientation="Horizontal" Spacing="10">
+
+                        <BoxView BackgroundColor="Yellow"></BoxView>
+
+                        <Label Text="Primary Color" FontAttributes="Bold"
+                           FontSize="15" Margin="0,10,0,0"></Label>
+
+                    </StackLayout>
+
+                </StackLayout>
+ 
+                <StackLayout Orientation="Vertical" Margin="5">
+
+                    <Frame CornerRadius="5" BorderColor="Yellow" HasShadow="True">
+
+                        <StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+
+                                <Label Text="Edad:"  FontSize="15"
+                               VerticalOptions="Center"></Label>
+                                <Entry Placeholder="Ingrese Edad" 
+                               HorizontalOptions="FillAndExpand" ></Entry>
+
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+
+                                <Label Text="Intereses:" FontSize="15"
+                               VerticalOptions="Center"></Label>
+                                <Entry Placeholder="Ingresa que et gustaria aprender"
+                               HorizontalOptions="FillAndExpand" ></Entry>
+
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+
+                                <Label Text="Acerca de Mi:"  FontSize="15"
+                               VerticalOptions="Center"></Label>
+                                <Entry Placeholder="Cuentanos sobre ti"
+                               HorizontalOptions="FillAndExpand" ></Entry>
+
+                            </StackLayout>
+
+
+                        </StackLayout>
+                        
+                    </Frame>
+
+                   
+
+                </StackLayout>
+
+                <StackLayout VerticalOptions="EndAndExpand" Margin="5">
+
+                    <Button Text="Grabar Datos" TextColor="White" CornerRadius="20"
+                            BackgroundColor="OrangeRed"></Button>
+                    
+                </StackLayout>
+                
+            </StackLayout>
+
+        </ScrollView>
+        
+    </ContentPage.Content>
+ 
+</ContentPage>
