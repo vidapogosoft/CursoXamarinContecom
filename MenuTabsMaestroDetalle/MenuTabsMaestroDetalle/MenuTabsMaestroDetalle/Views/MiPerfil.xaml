@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MenuTabsMaestroDetalle.Views.MiPerfil">
+
+    <ContentPage Title="Mis Datos">
+
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="Datos Perfil"></Label>
+                </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+        
+    </ContentPage>
+
+    <ContentPage Title="Direciones" x:Name="TabDirecciones" IconImageSource="icon.png">
+
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="Direcciones"></Label>
+                </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+
+    </ContentPage>
+
+    <ContentPage Title="Intereses">
+
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="Intereses"></Label>
+                </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+
+    </ContentPage>
+
+</TabbedPage>
