@@ -8,7 +8,48 @@
         <ContentPage.Content>
             <ScrollView>
                 <StackLayout>
-                    <Label Text="Datos Perfil"></Label>
+
+                    <Frame Margin="5">
+                        <StackLayout Spacing="8">
+                            
+                            <Entry x:Name="TxtNombres" Placeholder="Ingrese Nombres" ></Entry>
+
+                            <Entry x:Name="TxtApellidos" Placeholder="Ingrese Apellidos"></Entry>
+
+                            <Button Text="Registrar" x:Name="BtnRegistrar" Clicked="BtnRegistrar_Clicked"></Button>
+                            
+                        </StackLayout>
+                        
+                    </Frame>
+
+                    <StackLayout Orientation="Vertical" Margin="5">
+                        <CollectionView x:Name="CVDatos" >
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ></LinearItemsLayout>
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <Frame CornerRadius="10">
+                                        <StackLayout Orientation="Vertical" Spacing="8">
+
+                                            <Label Text="{Binding Nombres}" FontSize="17"></Label>
+                                            <Label Text="{Binding Apellidos}" FontSize="15" FontAttributes="Bold" ></Label>
+                                            
+                                        </StackLayout>
+                                    </Frame>
+                                    
+                                </DataTemplate>
+                                
+                            </CollectionView.ItemTemplate>
+                            
+                        </CollectionView>
+                        
+                    </StackLayout>
+                    
+                    
                 </StackLayout>
             </ScrollView>
         </ContentPage.Content>
