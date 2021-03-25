@@ -11,13 +11,26 @@
 
                     <Frame Margin="5">
                         <StackLayout Spacing="8">
-                            
+
+
+                            <Image  Source="icon.png" x:Name="MainImage" HeightRequest="250" 
+                                    WidthRequest="250"></Image>
+
+
+                            <Label TextColor="Blue" FontSize="14" x:Name="Path"></Label>
+
                             <Entry x:Name="TxtNombres" Placeholder="Ingrese Nombres" ></Entry>
 
                             <Entry x:Name="TxtApellidos" Placeholder="Ingrese Apellidos"></Entry>
 
                             <Button Text="Registrar" x:Name="BtnRegistrar" Clicked="BtnRegistrar_Clicked"></Button>
-                            
+
+                            <Button Text="Sube tu Foto" x:Name="BtnFoto" Clicked="BtnFoto_Clicked"></Button>
+
+                            <Button Text="Actualizar" x:Name="BtnActualizar" ></Button>
+
+                            <Button Text="Eliminar" x:Name="BtnEliminar"></Button>
+
                         </StackLayout>
                         
                     </Frame>
@@ -37,6 +50,8 @@
 
                                             <Label Text="{Binding Nombres}" FontSize="17"></Label>
                                             <Label Text="{Binding Apellidos}" FontSize="15" FontAttributes="Bold" ></Label>
+
+                                            <Image Source="{Binding RegRutaImagen}" Aspect="AspectFill" WidthRequest="100"></Image>
                                             
                                         </StackLayout>
                                     </Frame>
