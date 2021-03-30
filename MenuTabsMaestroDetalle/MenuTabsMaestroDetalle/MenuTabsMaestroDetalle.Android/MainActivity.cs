@@ -7,6 +7,8 @@ using Android.OS;
 
 using Plugin.Media;
 
+using Plugin.CurrentActivity;
+
 namespace MenuTabsMaestroDetalle.Droid
 {
     [Activity(Label = "Menu APP", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
@@ -20,7 +22,14 @@ namespace MenuTabsMaestroDetalle.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
+            //Camara
             await CrossMedia.Current.Initialize();
+
+            //Mapas
+            Xamarin.FormsMaps.Init(this, savedInstanceState);
+
+            //Geolocator
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             LoadApplication(new App());
         }

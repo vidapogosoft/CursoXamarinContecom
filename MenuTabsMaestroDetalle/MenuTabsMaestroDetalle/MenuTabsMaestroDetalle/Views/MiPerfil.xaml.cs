@@ -13,6 +13,10 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.IO;
 
+using Xamarin.Forms.Maps;
+using Plugin.Geolocator;
+
+
 namespace MenuTabsMaestroDetalle.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -28,6 +32,7 @@ namespace MenuTabsMaestroDetalle.Views
         public MiPerfil()
         {
             InitializeComponent();
+            InitializePluginLocator();
         }
 
         protected override void OnAppearing()
@@ -39,6 +44,99 @@ namespace MenuTabsMaestroDetalle.Views
 
         }
 
+
+        public void MostrarPosMapa(double Latitud , double Longitud)
+        {
+            base.OnAppearing();
+
+            MiMapa.MoveToRegion(
+
+                MapSpan.FromCenterAndRadius
+                (
+                       new Position (Latitud, Longitud) ,
+                       Distance.FromKilometers(0.5)
+                )
+                );
+
+            //makers - Pin
+           
+            var position = new Position(Latitud, Longitud);
+
+            var pin = new Pin
+            {
+                Type = PinType.Place,
+                Position = position,
+                Label = "Curso de Xamarin Forms 5.0",
+                Address = "GYE"
+            };
+
+            //Asignar los pin al mapa
+            if (MiMapa.Pins.Count > 0)
+            {
+                MiMapa.Pins.Remove(pin);
+            }
+
+            MiMapa.Pins.Add(pin);
+
+        }
+
+        private async void InitializePluginLocator()
+        {
+            try
+            {
+
+                if (!CrossGeolocator.IsSupported)
+                {
+                    await DisplayAlert("Error", "NO habilitado geolocalizacion", "Cerrar");
+
+                    return;
+                }
+
+                if (!CrossGeolocator.Current.IsGeolocationEnabled
+                    || !CrossGeolocator.Current.IsGeolocationAvailable)
+                {
+
+                    await DisplayAlert("Error", "Geolocalizacion restringida", "Cerrar");
+
+                    return;
+                }
+
+                CrossGeolocator.Current.PositionChanged += Current_PositionChanged;
+
+                //Espcifico el tiempo con que se actualizan las coordenadas
+
+                await CrossGeolocator.Current.StartListeningAsync(new TimeSpan(0,0,3), 0.5);
+
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Cerrar");
+            }
+
+        }
+
+        private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
+        {
+
+            if(!CrossGeolocator.Current.IsListening)
+            {
+                DisplayAlert("Advertencia", "No se esta visualizando las coordenadas", "Cerrar");
+                return;
+            }
+
+            var position = CrossGeolocator.Current.GetPositionAsync();
+
+            Latitud.Text = position.Result.Latitude.ToString();
+            Longitud.Text = position.Result.Longitude.ToString();
+            Altimetria.Text = position.Result.Altitude.ToString();
+
+            //Muestro en mapa la posicion Geo - Localizada
+
+            MostrarPosMapa(position.Result.Latitude, position.Result.Longitude);
+
+        }
+
+      
         public async void CargaMisDatos()
         {
             Listregistrado = new List<Registrado>();
