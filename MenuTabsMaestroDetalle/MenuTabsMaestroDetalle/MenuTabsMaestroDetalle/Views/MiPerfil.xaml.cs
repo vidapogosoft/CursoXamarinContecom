@@ -42,9 +42,8 @@ namespace MenuTabsMaestroDetalle.Views
         public async void CargaMisDatos()
         {
             Listregistrado = new List<Registrado>();
+            
             ListFinal = new List<clsRegistrado>();
-
-            Listregistrado = new List<Registrado>();
 
             Listregistrado = await App.Database.GetRegistrado();
 
@@ -53,21 +52,21 @@ namespace MenuTabsMaestroDetalle.Views
 
                 for (int i = 0; i < Listregistrado.Count; i++)
                 {
-                    ListFinal.Add(new clsRegistrado
-                    {
-                        Nombres = Listregistrado[i].Nombres,
-                        Apellidos = Listregistrado[i].Apellidos,
-                        RegRutaImagen = CreateImage(Listregistrado[i].Imagen)
-                    });
-                }
+                    ListFinal.Add(
 
+                        new clsRegistrado
+                        {
+                            IdRegistrado = Listregistrado[i].IdRegistrado,
+                            Nombres = Listregistrado[i].Nombres,
+                            Apellidos = Listregistrado[i].Apellidos,
+                            RegRutaImagen =  CreateImage(Listregistrado[i].Imagen)
+                        });
+                }
 
                 //CVDatos.ItemsSource = Listregistrado;
 
                 CVDatos.ItemsSource = ListFinal;
             }
-
-
         }
 
         private async void BtnRegistrar_Clicked(object sender, EventArgs e)
@@ -229,6 +228,127 @@ namespace MenuTabsMaestroDetalle.Views
                 return streamr;
 
             });
+
+        }
+
+        private async void CVDatos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (e.CurrentSelection.Any())
+            {
+                //ImageSource FotoRegistrada;
+                string Nombres, Apellidos, IdRegistrado;
+
+                Nombres = (CVDatos.SelectedItem as clsRegistrado)?.Nombres;
+                Apellidos = (CVDatos.SelectedItem as clsRegistrado)?.Apellidos;
+                IdRegistrado = (CVDatos.SelectedItem as clsRegistrado)?.IdRegistrado.ToString();
+                //FotoRegistrada = (CVDatos.SelectedItem as clsRegistrado)?.RegRutaImagen;
+
+
+                TxtNombres.Text = Nombres;
+                TxtApellidos.Text = Apellidos;
+
+
+                //Consultar imagen a la base
+
+                Listregistrado = new List<Registrado>();
+
+                Listregistrado = await App.Database.GetRegistradoById(int.Parse(IdRegistrado));
+
+
+                if (Listregistrado.Count > 0)
+                {
+
+                    for (int i = 0; i < Listregistrado.Count; i++)
+                    {
+                        ArrayFoto = Listregistrado[i].Imagen;
+                        MainImage.Source = CreateImage(Listregistrado[i].Imagen);
+                        LblIdRegistrado.Text = Listregistrado[i].IdRegistrado.ToString();
+                    }
+
+                }
+
+                  CVDatos.SelectedItem = null;
+
+            }
+
+        }
+
+        private async void BtnActualizar_Clicked(object sender, EventArgs e)
+        {
+            bool DeACuerdo;
+            int grabado;
+
+            DeACuerdo = await DisplayAlert("Confirmar", "¿Desea actualizar datos?", "De Acuerdo", "Cancelar");
+
+
+            if (DeACuerdo)
+            {
+
+                var Actualizar = new Registrado
+                {
+                    IdRegistrado =  int.Parse(LblIdRegistrado.Text),
+                    Nombres = TxtNombres.Text,
+                    Apellidos = TxtApellidos.Text,
+                    FechaRegistro = DateTime.Now,
+                    Imagen = ArrayFoto
+                };
+
+                grabado = await App.Database.UpdateDatos(Actualizar);
+
+                if (grabado == 1)
+                {
+                    await DisplayAlert("Exito!", "Datos Actualizados", "De Acuerdo");
+
+                    LblIdRegistrado.Text = "0";
+                    TxtNombres.Text = string.Empty;
+                    TxtApellidos.Text = string.Empty;
+                    MainImage.Source = "icon.png";
+                    Path.Text = string.Empty;
+
+                    CargaMisDatos();
+
+                }
+            }
+        }
+
+        private async void BtnEliminar_Clicked(object sender, EventArgs e)
+        {
+
+            bool DeACuerdo;
+            int grabado;
+
+            DeACuerdo = await DisplayAlert("Confirmar", "¿Desea eliminar datos?", "De Acuerdo", "Cancelar");
+
+
+            if (DeACuerdo)
+            {
+
+                var Borrar = new Registrado
+                {
+                    IdRegistrado = int.Parse(LblIdRegistrado.Text),
+                    Nombres = TxtNombres.Text,
+                    Apellidos = TxtApellidos.Text,
+                    FechaRegistro = DateTime.Now,
+                    Imagen = ArrayFoto
+                };
+
+                grabado = await App.Database.DeleteDatos(Borrar);
+
+                if (grabado == 1)
+                {
+                    await DisplayAlert("Exito!", "Datos Eliminados", "De Acuerdo");
+
+                    LblIdRegistrado.Text = "0";
+                    TxtNombres.Text = string.Empty;
+                    TxtApellidos.Text = string.Empty;
+                    MainImage.Source = "icon.png";
+                    Path.Text = string.Empty;
+
+                    CargaMisDatos();
+
+                }
+            }
 
         }
     }

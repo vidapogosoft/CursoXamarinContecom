@@ -19,6 +19,8 @@
 
                             <Label TextColor="Blue" FontSize="14" x:Name="Path"></Label>
 
+                            <Label Text="0" IsVisible="False"  x:Name="LblIdRegistrado"></Label>
+                            
                             <Entry x:Name="TxtNombres" Placeholder="Ingrese Nombres" ></Entry>
 
                             <Entry x:Name="TxtApellidos" Placeholder="Ingrese Apellidos"></Entry>
@@ -27,16 +29,17 @@
 
                             <Button Text="Sube tu Foto" x:Name="BtnFoto" Clicked="BtnFoto_Clicked"></Button>
 
-                            <Button Text="Actualizar" x:Name="BtnActualizar" ></Button>
+                            <Button Text="Actualizar" x:Name="BtnActualizar" Clicked="BtnActualizar_Clicked"></Button>
 
-                            <Button Text="Eliminar" x:Name="BtnEliminar"></Button>
+                            <Button Text="Eliminar" x:Name="BtnEliminar" Clicked="BtnEliminar_Clicked"></Button>
 
                         </StackLayout>
                         
                     </Frame>
 
                     <StackLayout Orientation="Vertical" Margin="5">
-                        <CollectionView x:Name="CVDatos" >
+                        <CollectionView x:Name="CVDatos"  SelectionMode="Single"
+                                        SelectionChanged="CVDatos_SelectionChanged">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" ></LinearItemsLayout>
                             </CollectionView.ItemsLayout>
@@ -48,6 +51,8 @@
                                     <Frame CornerRadius="10">
                                         <StackLayout Orientation="Vertical" Spacing="8">
 
+                                            <Label Text="{Binding IdRegistrado}" IsVisible="False" ></Label>
+                                            
                                             <Label Text="{Binding Nombres}" FontSize="17"></Label>
                                             <Label Text="{Binding Apellidos}" FontSize="15" FontAttributes="Bold" ></Label>
 

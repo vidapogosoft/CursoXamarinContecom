@@ -26,6 +26,16 @@ namespace MenuTabsMaestroDetalle.DA
             return database.InsertAsync(NewDato);
         }
 
+        public Task<int> UpdateDatos(Registrado UpdDato)
+        {
+            return database.UpdateAsync(UpdDato);
+        }
+
+        public Task<int> DeleteDatos(Registrado DelDato)
+        {
+            return database.DeleteAsync(DelDato);
+        }
+
         public Task<List<Registrado>> GetRegistrado()
         {
             var lista = database.Table<Registrado>().ToListAsync();
