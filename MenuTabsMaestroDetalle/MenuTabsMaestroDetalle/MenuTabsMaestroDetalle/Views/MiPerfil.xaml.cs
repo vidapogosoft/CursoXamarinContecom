@@ -16,6 +16,9 @@ using System.IO;
 using Xamarin.Forms.Maps;
 using Plugin.Geolocator;
 
+using Xamarin.Essentials;
+
+using Xamarin.Forms.OpenWhatsApp;
 
 namespace MenuTabsMaestroDetalle.Views
 {
@@ -28,6 +31,8 @@ namespace MenuTabsMaestroDetalle.Views
 
         public byte[] ArrayFoto;  //Almacenar Foto
 
+        public List<RegistradoFotos> ListFotosRegistradas;
+        public List<clsRegistrado> ListFinalFotos;
 
         public MiPerfil()
         {
@@ -275,25 +280,47 @@ namespace MenuTabsMaestroDetalle.Views
                 }
 
 
+                if (Accion != 3)
+                {
+
+                    this.Path.Text = file.AlbumPath;
+
+                    this.MainImage.Source = ImageSource.FromStream(() =>
+                    {
+                        var stream = file.GetStream();
+
+                        ArrayFoto = ReadImage(file.GetStream());
+
+                        file.Dispose();
+                        return stream;
+                    }
+                   );
+
+                }
+
+
+                if (Accion == 3)
+                {
+                    file = await CrossMedia.Current.PickPhotoAsync();
+
+                    this.ImageTrabajo.Source = ImageSource.FromStream(() =>
+                    {
+                        var stream = file.GetStream();
+
+                        ArrayFoto = ReadImage(file.GetStream());
+
+                        file.Dispose();
+                        return stream;
+                    }
+                    );
+                }
+
+
                 if (file == null)
                 {
                     await DisplayAlert("Camara", "No realizo nada con la camara", "Cerrar");
                     return;
                 }
-
-                this.Path.Text = file.AlbumPath;
-
-                this.MainImage.Source = ImageSource.FromStream(() =>
-                {
-                    var stream = file.GetStream();
-
-                    ArrayFoto = ReadImage(file.GetStream());
-
-                    file.Dispose();
-                    return stream;
-                }
-
-               );
 
 
             }
@@ -362,6 +389,13 @@ namespace MenuTabsMaestroDetalle.Views
                         ArrayFoto = Listregistrado[i].Imagen;
                         MainImage.Source = CreateImage(Listregistrado[i].Imagen);
                         LblIdRegistrado.Text = Listregistrado[i].IdRegistrado.ToString();
+                        
+                        LblIdRegistradoSeleccionado.Text = Listregistrado[i].IdRegistrado.ToString();
+                        lblNombresregistardos.Text = Listregistrado[i].Nombres;
+
+
+                        CargaFotosRegistrados(Listregistrado[i].IdRegistrado);
+
                     }
 
                 }
@@ -448,6 +482,111 @@ namespace MenuTabsMaestroDetalle.Views
                 }
             }
 
+        }
+
+        private void FotoTrabajo_Clicked(object sender, EventArgs e)
+        {
+            Camara(3);
+        }
+
+        private async void SubirTrabajo_Clicked(object sender, EventArgs e)
+        {
+
+            int grabado;
+
+            var Confirmar = new RegistradoFotos
+            {
+                IdRegistrado = int.Parse(LblIdRegistradoSeleccionado.Text),
+                Descripcion = TxtDescripcionFoto.Text,
+                FechaRegistro = DateTime.Now,
+                Imagen = ArrayFoto
+            };
+
+
+            grabado = await App.Database.RegistroFotos(Confirmar);
+
+            if (grabado == 1)
+            {
+                await DisplayAlert("Exito!", "Foto de trabajo registrada", "De Acuerdo");
+
+                TxtDescripcionFoto.Text = string.Empty;
+                ImageTrabajo.Source = "icon.png";
+
+            }
+
+            CargaFotosRegistrados(int.Parse(LblIdRegistradoSeleccionado.Text));
+
+         }
+
+        public async void CargaFotosRegistrados(int Idregistrado)
+        {
+            ListFotosRegistradas = new List<RegistradoFotos>();
+
+            ListFinalFotos = new List<clsRegistrado>();
+
+            ListFotosRegistradas = await App.Database.GetRegistradoFotosById(Idregistrado);
+
+            if (ListFotosRegistradas.Count > 0)
+            {
+
+                for (int i = 0; i < ListFotosRegistradas.Count; i++)
+                {
+                    ListFinalFotos.Add(
+
+                        new clsRegistrado
+                        {
+                            DescripcionTrabajo = ListFotosRegistradas[i].Descripcion,
+                            RegRutaImagen = CreateImage(ListFotosRegistradas[i].Imagen)
+                        });
+                }
+
+            }
+
+            CVFotos.ItemsSource = ListFinalFotos;
+        }
+
+        private void BtnLlamar_Clicked(object sender, EventArgs e)
+        {
+            PhoneDialer.Open("046004000");
+        }
+
+        private async void BtnEmail_Clicked(object sender, EventArgs e)
+        {
+
+            List<string> reciben;
+
+            reciben = new List<string>();
+
+            reciben.Add("victor.portugal@sinergiass.com");
+
+            var message = new EmailMessage
+            {
+
+                Subject = "Curso de Xamarin",
+                Body = "Dictado en la ciudad de Guayaquil",
+                To = reciben
+            };
+
+            await Email.ComposeAsync(message);
+
+        }
+
+        private async void BtnShare_Clicked(object sender, EventArgs e)
+        {
+
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Uri = "https://www.youtube.com/watch?v=AlqZ1LpUXeg",
+                Title = "Real Time with SignalR y Xamarin"
+            });
+
+
+        }
+
+        private void Btnwhatsapp_Clicked(object sender, EventArgs e)
+        {
+            Chat.Open("+593960574445", "Nuevo Mensaje Generado\n"
+                + "Fecha y Hora: \n" + DateTime.Now.ToString() + "\n");
         }
     }
 }

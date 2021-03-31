@@ -15,5 +15,7 @@ namespace MenuTabsMaestroDetalle.Model
         public string Apellidos { get; set; }
 
         public ImageSource RegRutaImagen { get; set; }
+
+        public string DescripcionTrabajo { get; set; }
     }
 }

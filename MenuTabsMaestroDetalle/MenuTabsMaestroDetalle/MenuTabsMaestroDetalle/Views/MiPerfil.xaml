@@ -39,7 +39,7 @@
                     </Frame>
 
                     <StackLayout Orientation="Vertical" Margin="5">
-                        <CollectionView x:Name="CVDatos"  SelectionMode="Single"
+                        <CollectionView x:Name="CVDatos"  SelectionMode="Single" HeightRequest="250"
                                         SelectionChanged="CVDatos_SelectionChanged">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Horizontal" ></LinearItemsLayout>
@@ -106,12 +106,83 @@
 
     </ContentPage>
 
-    <ContentPage Title="Intereses">
+    <ContentPage Title="Trabajos">
 
         <ContentPage.Content>
             <ScrollView>
-                <StackLayout>
-                    <Label Text="Intereses"></Label>
+                <StackLayout Margin="5">
+                    <Label Text="Mis Trabajos realizados"></Label>
+
+                    <Label Text="0" x:Name="LblIdRegistradoSeleccionado"></Label>
+                    <Label Text="0" x:Name="lblNombresregistardos"></Label>
+
+                    <StackLayout Orientation="Vertical" Margin="5">
+                        <CollectionView x:Name="CVFotos" HeightRequest="250">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"></LinearItemsLayout>
+                            </CollectionView.ItemsLayout>
+
+                            <CollectionView.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    
+                                    <StackLayout Orientation="Vertical" Spacing="8">
+
+                                        <Image Source="{Binding RegRutaImagen}" HeightRequest="150"
+                                               Aspect="AspectFill" WidthRequest="150"></Image>
+
+                                        <Label Text="{Binding DescripcionTrabajo}" FontSize="17"></Label>
+
+                                    </StackLayout>
+                                   
+
+                                </DataTemplate>
+
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+
+                    </StackLayout>
+
+                    <Frame>
+                        <StackLayout Orientation="Vertical">
+                            <Button BackgroundColor="Navy" TextColor="White"
+                                Text="Contactar" x:Name="BtnLlamar" Clicked="BtnLlamar_Clicked"></Button>
+
+                            <Button BackgroundColor="Orange" TextColor="White"
+                                Text="Mas Info via email" x:Name="BtnEmail" Clicked="BtnEmail_Clicked"></Button>
+
+                            <Button BackgroundColor="Red" TextColor="White"
+                                Text="Compartir" x:Name="BtnShare" Clicked="BtnShare_Clicked" ></Button>
+
+                            <Button BackgroundColor="Green" TextColor="White"
+                                Text="Whatsapp" x:Name="Btnwhatsapp" Clicked="Btnwhatsapp_Clicked" ></Button>
+
+                        </StackLayout>
+                    </Frame>
+
+
+                    <Frame>
+                        <StackLayout Orientation="Vertical">
+
+                            <Image  Source="icon.png" x:Name="ImageTrabajo" HeightRequest="250" 
+                                    WidthRequest="250"></Image>
+
+
+                            <Entry x:Name="TxtDescripcionFoto" Placeholder="Cuentanos que realizastes" ></Entry>
+
+                            <Button BackgroundColor="Brown" TextColor="White"
+                                Text="Subir Foto" x:Name="FotoTrabajo" Clicked="FotoTrabajo_Clicked"></Button>
+
+
+                            <Button BackgroundColor="White" TextColor="Navy"
+                                Text="Subir Trabajo Realizado" x:Name="SubirTrabajo" Clicked="SubirTrabajo_Clicked"></Button>
+
+                        </StackLayout>
+                    </Frame>
+
+
                 </StackLayout>
             </ScrollView>
         </ContentPage.Content>

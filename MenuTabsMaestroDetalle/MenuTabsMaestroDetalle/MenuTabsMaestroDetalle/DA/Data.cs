@@ -18,6 +18,7 @@ namespace MenuTabsMaestroDetalle.DA
             database = new SQLiteAsyncConnection(dbpath);
 
             database.CreateTableAsync<Registrado>().Wait();
+            database.CreateTableAsync<RegistradoFotos>().Wait();
 
         }
 
@@ -50,6 +51,18 @@ namespace MenuTabsMaestroDetalle.DA
             return lista;
         }
 
+
+        public Task<int> RegistroFotos(RegistradoFotos NewDato)
+        {
+            return database.InsertAsync(NewDato);
+        }
+
+        public Task<List<RegistradoFotos>> GetRegistradoFotosById(int Idregistrado)
+        {
+            var lista = database.Table<RegistradoFotos>().Where(z => z.IdRegistrado == Idregistrado).ToListAsync();
+
+            return lista;
+        }
 
     }
 }
