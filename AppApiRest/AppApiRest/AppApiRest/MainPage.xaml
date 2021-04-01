@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppApiRest.MainPage">
+
+    <ScrollView>
+
+        <StackLayout>
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+                <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+            <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
+            <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
+            <Label FontSize="16" Padding="30,24,30,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <FormattedString.Spans>
+                            <Span Text="Learn more at "/>
+                            <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+                        </FormattedString.Spans>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <StackLayout Margin="5">
+
+                <CollectionView x:Name="CVRegistrados" HeightRequest="400">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="8"></LinearItemsLayout>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="10" Margin="1">
+                                <StackLayout VerticalOptions="Center">
+
+                                    <Image Source="{Binding regRutaImagen}" 
+                                       HeightRequest="200" WidthRequest="200" Aspect="AspectFill">
+                                    </Image>
+
+                                    <Label FontAttributes="Bold" FontSize="15" HorizontalTextAlignment="Center"
+                                                   Text="{Binding regNombresCompletos}" />
+                                    <Label FontSize="14" HorizontalTextAlignment="Center" TextColor="#3A5DA8" FontAttributes="Bold"
+                                                   Text="{Binding regProfesion}" />
+
+                                    <StackLayout Spacing="0" WidthRequest="50" Margin="0,4,0,0">
+                                        <Label FontSize="12" HorizontalTextAlignment="Center"
+                                                            Text="{Binding regAcercaDe}" LineBreakMode="WordWrap" MaxLines="3" />
+                                    </StackLayout>
+
+
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </ScrollView>
+    
+ 
+
+</ContentPage>
