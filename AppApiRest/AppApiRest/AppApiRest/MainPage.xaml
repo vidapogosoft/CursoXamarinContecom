@@ -22,6 +22,10 @@
                 </Label.FormattedText>
             </Label>
 
+            <Button Text="Notificacion" x:Name="BtnNotif" Clicked="BtnNotif_Clicked"></Button>
+            
+            <Button Text="Nuevo Registro" x:Name="BtnNuevo" Clicked="BtnNuevo_Clicked"></Button>
+            
             <StackLayout Margin="5">
 
                 <CollectionView x:Name="CVRegistrados" HeightRequest="400">

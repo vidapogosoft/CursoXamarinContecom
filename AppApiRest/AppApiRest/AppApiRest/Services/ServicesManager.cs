@@ -23,5 +23,14 @@ namespace AppApiRest.Services
             return restService.GetRegistrados();
         }
 
+        public async Task<int> SaveRegistro(clsPerfilDUO item, bool isNewItem)
+        {
+            int Grabado;
+
+            Grabado = await restService.SaveRegistro(item, isNewItem);
+
+            return Grabado;
+        }
+
     }
 }

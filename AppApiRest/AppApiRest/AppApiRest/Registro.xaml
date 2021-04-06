@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppApiRest.Registro"
+             Title="Nuevo Registro">
+    <ContentPage.Content>
+
+        <ScrollView>
+            <StackLayout VerticalOptions="CenterAndExpand">
+
+                <Frame Margin="5" HasShadow="True">
+                    <StackLayout>
+
+                        <DatePicker x:Name="DtFechaSalida"
+                                    MaximumDate="12/31/3000"
+                                            FontAttributes="Bold"/>
+
+                        <Entry Visual="Default" x:Name="IdRegistrado" FontSize="14" Placeholder="Registro Id" HorizontalOptions="FillAndExpand"
+                               Text="80"></Entry>
+
+                        <Entry Visual="Default" x:Name="Nombres" FontSize="14" Placeholder="Tus nombres" HorizontalOptions="FillAndExpand"></Entry>
+
+                        <Entry Visual="Default" x:Name="Apellidos" FontSize="14" Placeholder="Tus apellidos" HorizontalOptions="FillAndExpand"></Entry>
+
+                        <Entry Visual="Default" x:Name="Email" FontSize="14" Placeholder="Tu @email" 
+                                                       HorizontalOptions="FillAndExpand" ></Entry>
+                        <Entry Visual="Default" x:Name="Celular" FontSize="14" Placeholder="Tu numero celular" HorizontalOptions="FillAndExpand"
+                                       Keyboard="Numeric"></Entry>
+
+
+                    </StackLayout>
+
+                </Frame>
+
+                <Frame CornerRadius="10"  Margin="5" HasShadow="True">
+                    <StackLayout x:Name="DivDatosProfesion"  Orientation="Vertical" Spacing="4" TranslationY="20" Margin="0,0,0,20">
+                        
+                        <Entry Visual="Default" x:Name="Profesion" FontSize="14"
+                                                    Placeholder="Registra tu profesion" HorizontalOptions="FillAndExpand"></Entry>
+                        <Editor Visual="Default" x:Name="AcercaDe" FontSize="14" 
+                                                           Placeholder="Date a conocer, cuentanos sobre ti" 
+                                                            HorizontalOptions="FillAndExpand"
+                                                            AutoSize="TextChanges"></Editor>
+
+                    </StackLayout>
+
+                </Frame>
+
+                <Frame CornerRadius="10" Margin="5" HasShadow="True">
+                    <StackLayout Orientation="Vertical" Spacing="4">
+
+                        <Label  Margin="5,0,5,15" Text="¿Como te gustaria que te busquen en DUO?" 
+                            FontAttributes="Bold" FontSize="15"></Label>
+
+                        <StackLayout Orientation="Horizontal">
+
+                            <StackLayout Orientation="Vertical">
+
+                                <StackLayout Orientation="Horizontal" Spacing="18">
+                                    <Label Text="Tecnologia"  FontSize="12"></Label>
+                                    <Switch x:Name="Tecno" OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                          ></Switch>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal" Spacing="35">
+                                    <Label Text="Legales"  FontSize="12"></Label>
+                                    <Switch x:Name="Legal" OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                          ></Switch>
+                                </StackLayout>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Label Text="Comunicacion"  FontSize="12"></Label>
+                                    <Switch x:Name="Comuni" OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                          ></Switch>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal" Spacing="25">
+                                    <Label Text="Comercio"  FontSize="12"></Label>
+                                    <Switch x:Name="Comer"  OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                          ></Switch>
+                                </StackLayout>
+
+
+                            </StackLayout>
+
+                            <StackLayout Orientation="Vertical">
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="27">
+                                    <Label Text="Arte y Diseño"  FontSize="12"></Label>
+                                    <Switch x:Name="Arte" OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                              ></Switch>
+
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Label Text="Servicios Tecnicos"  FontSize="12"></Label>
+                                    <Switch x:Name="SerTec"  OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                          ></Switch>
+                                </StackLayout>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="42">
+                                    <Label Text="Urbanismo"  FontSize="12"></Label>
+                                    <Switch x:Name="Urba"  OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                          ></Switch>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal" Spacing="8">
+                                    <Label Text="Emprendimientos"  FontSize="12"></Label>
+                                    <Switch x:Name="Empren" OnColor="LightBlue" ThumbColor="#0f3a5d"
+                                                            ></Switch>
+                                </StackLayout>
+
+                            </StackLayout>
+
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+
+                <Button BackgroundColor="#0f3a5d" TextColor="White" Margin="20"
+                                FontAttributes="Bold" FontSize="15" x:Name="BtnRegistrarme"
+                                Text="Grabar Datos" CornerRadius="20" 
+                    Clicked="BtnRegistrarme_Clicked"></Button>
+
+            </StackLayout>
+        </ScrollView>
+        
+      
+    </ContentPage.Content>
+</ContentPage>

@@ -10,6 +10,6 @@ namespace AppApiRest.Services
     public interface IRestService
     {
         Task<List<clsRegistrados>> GetRegistrados();
-
+        Task<int> SaveRegistro(clsPerfilDUO item, bool isNewItem);
     }
 }
